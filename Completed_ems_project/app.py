@@ -81,6 +81,7 @@ def login_api():
             }), 401
 
         session['user_id'] = user.id
+        session['user_role'] = user.role.lower()
         return jsonify({
             "status": "success",
             "user": {"name": user.name, "role": user.role, "id": user.id}
@@ -97,10 +98,21 @@ def logout():
 
 @app.route('/employees')
 def manage_employees():
-    if session.get('user_role') != 'hr':
+    # Check if the user is logged in
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect(url_for('login'))
+    
+    # Get the user from the database to check the current role
+    user = db.session.get(Employee, user_id)
+    
+    # Verify the role is 'hr'
+    if not user or user.role.lower() != 'hr':
         return "Unauthorized", 403
+        
     employees = Employee.query.all()
-    return render_template('hr/employees.html', employees=employees)
+    # Pass 'user' to the template so your sidebar initials and names work
+    return render_template('hr/employees.html', employees=employees, user=user)
 
 @app.route('/leave-requests')
 def view_leave_requests():
