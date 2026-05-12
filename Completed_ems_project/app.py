@@ -60,7 +60,7 @@ def index():
     return render_template('hr/dashboard.html', user=user)
 
 @app.route('/login')
-def login_page():
+def login():
     return render_template('login.html')
 
 @app.route('/api/login', methods=['POST'])
