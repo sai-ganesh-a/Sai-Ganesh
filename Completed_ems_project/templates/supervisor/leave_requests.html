@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="view active" id="view-leave-approval">
+    <div class="page-header">
+        <div class="page-header-row">
+            <div>
+                <h2>Leave Requests</h2>
+                <p>Review and approve employee leave applications</p>
+                <div class="gold-underline"></div>
+            </div>
+            
+            <div class="login-role-tabs" style="margin-bottom: 0; max-width: 400px;">
+                <button class="login-role-tab active" onclick="filterCards('all')">All</button>
+                <button class="login-role-tab" onclick="filterCards('pending')">Pending</button>
+                <button class="login-role-tab" onclick="filterCards('approved')">Approved</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="leave-request-grid" id="leave-cards-container">
+        <div class="leave-request-card" data-card-status="pending" data-emp-id="EMP-2005">
+            <div class="leave-card-top">
+                <div class="leave-card-meta">
+                    <div class="leave-card-emp">
+                        <div class="leave-card-avatar">AR</div>
+                        <div>
+                            <div class="leave-card-emp-name">Ananya Rao</div>
+                            <div class="leave-card-emp-role">UI Designer • Design</div>
+                        </div>
+                    </div>
+                    <span class="badge badge-pending">Pending</span>
+                </div>
+            </div>
+            
+            <div class="leave-card-info">
+                <div class="leave-card-detail">
+                    <span class="leave-card-detail-label">Type</span>
+                    <span class="leave-card-detail-val">Annual Leave</span>
+                </div>
+                <div class="leave-card-detail">
+                    <span class="leave-card-detail-label">Duration</span>
+                    <span class="leave-card-detail-val">May 12 — May 14 (3 Days)</span>
+                </div>
+                <div class="leave-card-detail">
+                    <span class="leave-card-detail-label">Reason</span>
+                    <span class="leave-card-detail-val">Family function in native place.</span>
+                </div>
+            </div>
+
+            <div class="leave-card-actions">
+                <div class="leave-card-actions-row">
+                    <button class="btn btn-success btn-sm btn-full" onclick="approveLeave('LR-501', this)">Approve</button>
+                    <button class="btn btn-danger btn-sm btn-full" onclick="toggleRejectReason(this)">Reject</button>
+                </div>
+                
+                <div class="reject-reason-wrap">
+                    <textarea placeholder="Provide reason for rejection..."></textarea>
+                    <div class="reject-confirm-row">
+                        <button class="btn btn-outline btn-sm" onclick="toggleRejectReason(this)">Cancel</button>
+                        <button class="btn btn-danger btn-sm" onclick="confirmReject('LR-501', this)">Confirm Reject</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+</div>
+{% endblock %}

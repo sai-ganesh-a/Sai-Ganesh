@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="view active" id="view-my-profile">
+    <div class="profile-hero">
+        <div class="profile-hero-avatar" id="profile-avatar-big">PS</div>
+        <div class="profile-hero-info">
+            <h2 id="profile-name-display">Priya Sharma</h2>
+            <p id="profile-role-display">HR Administrator • Engineering</p>
+            <div class="profile-hero-meta">
+                <div class="profile-hero-tag">ID: <span id="profile-id-display">EMP-2001</span></div>
+                <div class="profile-hero-tag">Joined: <span id="profile-joined-display">Jan 12, 2024</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="leave-balance-row">
+        <div class="leave-balance-card">
+            <div class="leave-balance-num">12</div>
+            <div class="leave-balance-type">Annual Leave</div>
+            <div class="leave-balance-used">Remaining</div>
+        </div>
+        <div class="leave-balance-card">
+            <div class="leave-balance-num">08</div>
+            <div class="leave-balance-type">Sick Leave</div>
+            <div class="leave-balance-used">Available</div>
+        </div>
+        <div class="leave-balance-card">
+            <div class="leave-balance-num">02</div>
+            <div class="leave-balance-type">Personal</div>
+            <div class="leave-balance-used">Available</div>
+        </div>
+    </div>
+
+    <div class="form-grid">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-header-title">Personal Information</div>
+            </div>
+            <div class="card-body">
+                <form id="profile-personal-form">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" value="Priya Sharma">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" value="p.sharma@nexus-corp.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" value="+91 98765 43210">
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="showToast('Profile updated successfully')">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-header-title">Professional Details</div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-label">Employee ID</label>
+                    <input type="text" class="form-control locked" value="EMP-2001" readonly>
+                    <div class="field-locked-note">🔒 System generated</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Department</label>
+                    <input type="text" class="form-control locked" value="Engineering" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Designation</label>
+                    <input type="text" class="form-control locked" value="HR Administrator" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Reporting Manager</label>
+                    <input type="text" class="form-control locked" value="Arjun Mehta" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

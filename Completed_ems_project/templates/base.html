@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus EMS — Employee Management System</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <style>
+        /* CRITICAL FIX: Ensures the app is visible when rendered by Flask */
+        #app-shell {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app-shell">
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <div class="sidebar-logo-text">Nexus<span>EMS</span></div>
+            <div class="sidebar-logo-sub">Enterprise Suite</div>
+        </div>
+
+        <div class="sidebar-user">
+            <div class="sidebar-avatar" id="user-avatar-initials">
+                {{ user.name[0] if user else '?' }}
+            </div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name" id="user-display-name">
+                    {{ user.name if user else 'Loading...' }}
+                </div>
+                <div class="sidebar-user-role" id="user-display-role">
+                    {{ user.designation if user else 'Access Verified' }}
+                </div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="hr-controls">
+                <div class="sidebar-section-label">Administration</div>
+                <div class="sidebar-nav-item {{ 'active' if request.path == '/' }}" 
+                     onclick="window.location.href='/'">
+                    <span class="nav-icon">▤</span> Dashboard
+                </div>
+                <div class="sidebar-nav-item {{ 'active' if request.path == '/employees' }}" 
+                     onclick="window.location.href='/employees'">
+                    <span class="nav-icon">👥</span> Employees
+                </div>
+            </div>
+
+            <div class="supervisor-controls">
+                <div class="sidebar-section-label">Management</div>
+                <div class="sidebar-nav-item {{ 'active' if request.path == '/leave-requests' }}" 
+                     onclick="window.location.href='/leave-requests'">
+                    <span class="nav-icon">✓</span> Leave Requests
+                    <span class="sidebar-nav-badge">2</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section-label">Personal</div>
+            <div class="sidebar-nav-item {{ 'active' if request.path == '/profile' }}" 
+                 onclick="window.location.href='/profile'">
+                <span class="nav-icon">👤</span> My Profile
+            </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="/logout" class="sidebar-logout">
+                <span>Logout</span> &rarr;
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-bar">
+            <div class="top-bar-title" id="current-view-title">
+                {% if request.path == '/' %}Dashboard
+                {% elif request.path == '/employees' %}Manage Employees
+                {% elif request.path == '/leave-requests' %}Leave Approval
+                {% elif request.path == '/profile' %}My Profile
+                {% else %}Workspace{% endif %}
+            </div>
+            <div class="top-bar-actions">
+                <div class="top-bar-badge">
+                    <span>✧</span> <span id="top-bar-role-text">Secure Access</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="content-area">
+            {% block content %}{% endblock %}
+        </section>
+    </main>
+</div>
+
+<div id="global-toast" class="toast"></div>
+
+<div id="modal-overlay" class="modal-overlay">
+    <div class="modal" id="generic-modal"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>

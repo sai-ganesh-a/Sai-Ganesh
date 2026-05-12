@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="view active" id="view-employees">
+    <div class="page-header">
+        <div class="page-header-row">
+            <div>
+                <h2>Manage Employees</h2>
+                <p>View, edit, and manage all employee records</p>
+                <div class="gold-underline"></div>
+            </div>
+            
+            <div class="search-bar">
+                <div class="search-input-wrap">
+                    <span class="search-icon">🔍</span>
+                    <input type="search" id="employee-search" placeholder="Search by name or ID..." oninput="filterEmployees()">
+                </div>
+                <div class="select-wrap">
+                    <select id="dept-filter" onchange="filterEmployees()">
+                        <option value="all">All Departments</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Design">Design</option>
+                        <option value="HR">HR</option>
+                        <option value="Marketing">Marketing</option>
+                    </select>
+                </div>
+                <button class="btn btn-gold btn-sm" onclick="openAddEmployeeModal()">+ Add Employee</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="table-wrapper">
+            <table class="data-table" id="employee-table">
+                <thead>
+                    <tr>
+                        <th>Emp ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Designation</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="employee-table-body">
+                    <tr>
+                        <td style="font-weight: 500;">EMP-2001</td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <div class="sidebar-avatar" style="width: 30px; height: 30px; font-size: 0.8rem;">PS</div>
+                                <span>Priya Sharma</span>
+                            </div>
+                        </td>
+                        <td>Engineering</td>
+                        <td>HR Administrator</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                        <td>
+                            <button class="btn btn-outline btn-sm" style="padding: 0.25rem 0.5rem;" title="Edit">✎</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="add-employee-modal-content" style="display: none;">
+    <div class="modal-header">
+        <h3>Onboard New Employee</h3>
+        <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    
+    <div class="modal-body">
+        <form id="add-employee-form" onsubmit="event.preventDefault(); submitAddEmployee();">
+            <div class="form-section-title">Personal Details</div>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="new-emp-name" class="form-control" placeholder="e.g. Vikram Sai" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Official Email (Username)</label>
+                    <input type="email" id="new-emp-email" class="form-control" placeholder="v.sai@nexus-corp.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Personal Email</label>
+                    <input type="email" id="new-emp-personal-email" class="form-control" placeholder="vikram.personal@gmail.com" required>
+                </div>
+
+                <div class="form-section-title" style="grid-column: span 2; margin-top: 1rem;">Work Assignment</div>
+
+                <div class="form-group">
+                    <label class="form-label">Employee ID</label>
+                    <input type="text" id="new-emp-id" class="form-control" placeholder="EMP-XXXX">
+                    <small style="color: var(--gold); opacity: 0.7;">Leave blank for auto-generation</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Department</label>
+                    <select id="new-emp-dept" class="form-control">
+                        <option value="Engineering">Engineering</option>
+                        <option value="Design">Design</option>
+                        <option value="HR">HR</option>
+                        <option value="Marketing">Marketing</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="submitAddEmployee()">Create Profile</button>
+    </div>
+</div>
+{% endblock %}
